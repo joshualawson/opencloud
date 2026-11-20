@@ -74,7 +74,9 @@ The NAS container runs as root with host networking; `use_space_owner`,
 `adopt_existing_space_roots`, `watch_fs` with `inotifywait` and `scan_fs` are
 on. `smbnotify` is not needed in this layout. The homelab `drive` chart owns
 the compose file and starts it through Container Station's TLS Docker API
-from a Helm hook Job, so both halves deploy in one release.
+from a Helm hook Job, so both halves deploy in one release. The image is
+built on Gitea by the `opencloud-build` repo from the commit it pins; GitHub
+only hosts the fork source and its test workflow.
 
 ## Runtime contract for the chart (joshualawson/opencloud#3)
 
