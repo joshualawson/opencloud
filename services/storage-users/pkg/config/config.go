@@ -209,11 +209,24 @@ type PosixDriver struct {
 
 	ScanFS                   bool          `yaml:"scan_fs" env:"STORAGE_USERS_POSIX_SCAN_FS" desc:"Scan the filesystem at startup for changes and update the metadata accordingly." introductionVersion:"6.2.0"`
 	WatchFS                  bool          `yaml:"watch_fs" env:"STORAGE_USERS_POSIX_WATCH_FS" desc:"Enable the filesystem watcher to detect changes to the filesystem. This is used to detect changes to the filesystem and update the metadata accordingly." introductionVersion:"2.0.0"`
-	WatchType                string        `yaml:"watch_type" env:"STORAGE_USERS_POSIX_WATCH_TYPE" desc:"Type of the watcher to use for getting notified about changes to the filesystem. Currently available options are 'inotifywait' (default), 'cephfs', 'gpfswatchfolder' and 'gpfsfileauditlogging'." introductionVersion:"1.0.0"`
+	WatchType                string        `yaml:"watch_type" env:"STORAGE_USERS_POSIX_WATCH_TYPE" desc:"Type of the watcher to use for getting notified about changes to the filesystem. Currently available options are 'inotifywait' (default), 'cephfs', 'gpfswatchfolder', 'gpfsfileauditlogging', 'natswatcher' and 'smbnotify'." introductionVersion:"1.0.0"`
 	WatchPath                string        `yaml:"watch_path" env:"STORAGE_USERS_POSIX_WATCH_PATH" desc:"Path to the watch directory/file. Only applies to the 'gpfsfileauditlogging' and 'inotifywait' watcher, in which case it is the path of the file audit log file/base directory to watch." introductionVersion:"1.0.0"`
 	WatchNotificationBrokers string        `yaml:"watch_notification_brokers" env:"STORAGE_USERS_POSIX_WATCH_NOTIFICATION_BROKERS,STORAGE_USERS_POSIX_WATCH_FOLDER_KAFKA_BROKERS" desc:"Comma-separated list of kafka brokers to read the watchfolder events from." introductionVersion:"1.0.0" deprecationVersion:"4.0.0" deprecationInfo:"STORAGE_USERS_POSIX_WATCH_FOLDER_KAFKA_BROKERS is deprecated and will be removed in a future version. Please use STORAGE_USERS_POSIX_WATCH_NOTIFICATION_BROKERS instead."`
 	WatchRoot                string        `yaml:"watch_root" env:"STORAGE_USERS_POSIX_WATCH_ROOT" desc:"Path to the watch root directory. Event paths will be considered relative to this path. Only applies to the 'gpswatchfolder' and 'cephfs' watchers." introductionVersion:"4.0.0"`
 	InotifyStatsFrequency    time.Duration `yaml:"inotify_stats_frequency" env:"STORAGE_USERS_POSIX_INOTIFY_STATS_FREQUENCY" desc:"Frequency to log inotify stats." introductionVersion:"4.0.0"`
+
+	SMBNotify SMBNotifyConfig `yaml:"smbnotify"`
+}
+
+// SMBNotifyConfig is the configuration of the 'smbnotify' watcher, which learns about changes from the SMB server that serves the same tree
+type SMBNotifyConfig struct {
+	Address        string        `yaml:"address" env:"STORAGE_USERS_POSIX_SMBNOTIFY_ADDRESS" desc:"Host and optional port of the SMB server that serves the watched tree, e.g. nas.example.com:445." introductionVersion:"9.2.0"`
+	Share          string        `yaml:"share" env:"STORAGE_USERS_POSIX_SMBNOTIFY_SHARE" desc:"Name of the SMB share that serves the watched tree." introductionVersion:"9.2.0"`
+	Path           string        `yaml:"path" env:"STORAGE_USERS_POSIX_SMBNOTIFY_PATH" desc:"Directory inside the share that corresponds to STORAGE_USERS_POSIX_WATCH_ROOT. Empty means the share root." introductionVersion:"9.2.0"`
+	Username       string        `yaml:"username" env:"STORAGE_USERS_POSIX_SMBNOTIFY_USERNAME" desc:"Account used to subscribe to change notifications. It needs read access to the watched directory and nothing else." introductionVersion:"9.2.0"`
+	Password       string        `yaml:"password" env:"STORAGE_USERS_POSIX_SMBNOTIFY_PASSWORD" desc:"Password of the notification account." introductionVersion:"9.2.0"`
+	Domain         string        `yaml:"domain" env:"STORAGE_USERS_POSIX_SMBNOTIFY_DOMAIN" desc:"NTLM domain of the notification account. Empty uses the domain the server proposes." introductionVersion:"9.2.0"`
+	ReconnectDelay time.Duration `yaml:"reconnect_delay" env:"STORAGE_USERS_POSIX_SMBNOTIFY_RECONNECT_DELAY" desc:"Wait between reconnect attempts to the SMB server. Defaults to 5s." introductionVersion:"9.2.0"`
 }
 
 // Events combines the configuration options for the event bus.

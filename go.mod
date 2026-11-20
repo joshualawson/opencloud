@@ -1,6 +1,6 @@
 module github.com/opencloud-eu/opencloud
 
-go 1.26.0
+go 1.27.0
 
 require (
 	dario.cat/mergo v1.0.2
@@ -203,14 +203,18 @@ require (
 	github.com/felixge/httpsnoop v1.1.0 // indirect
 	github.com/fsnotify/fsnotify v1.10.1 // indirect
 	github.com/gdexlab/go-render v1.0.1 // indirect
+	github.com/geoffgarside/ber v1.1.0 // indirect
 	github.com/go-acme/lego/v5 v5.5.2 // indirect
 	github.com/go-asn1-ber/asn1-ber v1.5.8 // indirect
+	github.com/go-crypt/x v0.4.17 // indirect
 	github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376 // indirect
 	github.com/go-git/go-billy/v5 v5.9.1 // indirect
 	github.com/go-git/go-git/v5 v5.19.2 // indirect
 	github.com/go-jose/go-jose/v3 v3.0.5 // indirect
 	github.com/go-jose/go-jose/v4 v4.1.6 // indirect
 	github.com/go-kit/log v0.2.1 // indirect
+	github.com/go-krb5/krb5 v0.1.1-0.20260910042439-3e50d4009c09 // indirect
+	github.com/go-krb5/x v0.3.3 // indirect
 	github.com/go-logfmt/logfmt v0.5.1 // indirect
 	github.com/go-logr/logr v1.4.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
@@ -245,6 +249,7 @@ require (
 	github.com/hashicorp/go-plugin v1.8.0 // indirect
 	github.com/hashicorp/golang-lru/v2 v2.0.7 // indirect
 	github.com/hashicorp/yamux v0.1.2 // indirect
+	github.com/hirochachacha/go-smb2/v2 v2.0.0-20261011164520-7f69f6587832 // indirect
 	github.com/huandu/xstrings v1.5.0 // indirect
 	github.com/iancoleman/strcase v0.3.0 // indirect
 	github.com/imdario/mergo v0.3.16 // indirect
@@ -322,6 +327,7 @@ require (
 	github.com/prometheus/common v0.72.0 // indirect
 	github.com/prometheus/procfs v0.22.0 // indirect
 	github.com/prometheus/statsd_exporter v0.22.8 // indirect
+	github.com/quic-go/quic-go v0.62.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/rs/xid v1.6.0 // indirect
 	github.com/russellhaering/goxmldsig v1.6.0 // indirect
@@ -405,4 +411,4 @@ exclude github.com/mattn/go-sqlite3 v2.0.3+incompatible
 
 replace github.com/go-micro/plugins/v4/store/nats-js-kv => github.com/opencloud-eu/go-micro-plugins/v4/store/nats-js-kv v0.0.0-20250512152754-23325793059a
 
-replace github.com/opencloud-eu/reva/v3 => github.com/joshualawson/reva/v3 v3.0.0-20261120010339-75c8a9fa0aee
+replace github.com/opencloud-eu/reva/v3 => github.com/joshualawson/reva/v3 v3.0.0-20261120011641-6c56f3a9b58d

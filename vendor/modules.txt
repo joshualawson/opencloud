@@ -445,6 +445,9 @@ github.com/gabriel-vasile/mimetype/internal/scan
 # github.com/gdexlab/go-render v1.0.1
 ## explicit
 github.com/gdexlab/go-render/render
+# github.com/geoffgarside/ber v1.1.0
+## explicit; go 1.13
+github.com/geoffgarside/ber
 # github.com/ggwhite/go-masker v1.1.0
 ## explicit; go 1.17
 github.com/ggwhite/go-masker
@@ -465,6 +468,9 @@ github.com/go-chi/httprate
 # github.com/go-chi/render v1.0.3
 ## explicit; go 1.16
 github.com/go-chi/render
+# github.com/go-crypt/x v0.4.17
+## explicit; go 1.26.0
+github.com/go-crypt/x/pbkdf2
 # github.com/go-git/gcfg v1.5.1-0.20230307220236-3a3c6141e376
 ## explicit; go 1.13
 github.com/go-git/gcfg
@@ -543,6 +549,49 @@ github.com/go-jose/go-jose/v4/json
 ## explicit; go 1.17
 github.com/go-kit/log
 github.com/go-kit/log/level
+# github.com/go-krb5/krb5 v0.1.1-0.20260910042439-3e50d4009c09
+## explicit; go 1.26.0
+github.com/go-krb5/krb5/asn1tools
+github.com/go-krb5/krb5/client
+github.com/go-krb5/krb5/config
+github.com/go-krb5/krb5/credentials
+github.com/go-krb5/krb5/crypto
+github.com/go-krb5/krb5/crypto/common
+github.com/go-krb5/krb5/crypto/etype
+github.com/go-krb5/krb5/crypto/rfc3961
+github.com/go-krb5/krb5/crypto/rfc3962
+github.com/go-krb5/krb5/crypto/rfc4757
+github.com/go-krb5/krb5/crypto/rfc8009
+github.com/go-krb5/krb5/gssapi
+github.com/go-krb5/krb5/iana
+github.com/go-krb5/krb5/iana/addrtype
+github.com/go-krb5/krb5/iana/adtype
+github.com/go-krb5/krb5/iana/asn1apptag
+github.com/go-krb5/krb5/iana/chksumtype
+github.com/go-krb5/krb5/iana/errorcode
+github.com/go-krb5/krb5/iana/etypeID
+github.com/go-krb5/krb5/iana/flags
+github.com/go-krb5/krb5/iana/keyusage
+github.com/go-krb5/krb5/iana/msgtype
+github.com/go-krb5/krb5/iana/nametype
+github.com/go-krb5/krb5/iana/patype
+github.com/go-krb5/krb5/kadmin
+github.com/go-krb5/krb5/keytab
+github.com/go-krb5/krb5/krberror
+github.com/go-krb5/krb5/messages
+github.com/go-krb5/krb5/pac
+github.com/go-krb5/krb5/service
+github.com/go-krb5/krb5/spnego
+github.com/go-krb5/krb5/types
+# github.com/go-krb5/x v0.3.3
+## explicit; go 1.25.0
+github.com/go-krb5/x/aescts
+github.com/go-krb5/x/dns
+github.com/go-krb5/x/encoding/asn1
+github.com/go-krb5/x/identity
+github.com/go-krb5/x/internal/saferio
+github.com/go-krb5/x/rpc/mstypes
+github.com/go-krb5/x/rpc/ndr
 # github.com/go-ldap/ldap/v3 v3.4.15
 ## explicit; go 1.26.0
 github.com/go-ldap/ldap/v3
@@ -796,6 +845,23 @@ github.com/hashicorp/golang-lru/v2/simplelru
 # github.com/hashicorp/yamux v0.1.2
 ## explicit; go 1.20
 github.com/hashicorp/yamux
+# github.com/hirochachacha/go-smb2/v2 v2.0.0-20261011164520-7f69f6587832
+## explicit; go 1.27.0
+github.com/hirochachacha/go-smb2/v2
+github.com/hirochachacha/go-smb2/v2/auth
+github.com/hirochachacha/go-smb2/v2/internal/crypto/ccm
+github.com/hirochachacha/go-smb2/v2/internal/crypto/cmac
+github.com/hirochachacha/go-smb2/v2/internal/directory
+github.com/hirochachacha/go-smb2/v2/internal/erref
+github.com/hirochachacha/go-smb2/v2/internal/msrpc
+github.com/hirochachacha/go-smb2/v2/internal/ntlm
+github.com/hirochachacha/go-smb2/v2/internal/path
+github.com/hirochachacha/go-smb2/v2/internal/spnego
+github.com/hirochachacha/go-smb2/v2/internal/utf16le
+github.com/hirochachacha/go-smb2/v2/notify
+github.com/hirochachacha/go-smb2/v2/security
+github.com/hirochachacha/go-smb2/v2/x/protocol
+github.com/hirochachacha/go-smb2/v2/x/wire
 # github.com/huandu/xstrings v1.5.0
 ## explicit; go 1.12
 github.com/huandu/xstrings
@@ -1360,8 +1426,8 @@ github.com/opencloud-eu/icap-client
 # github.com/opencloud-eu/libre-graph-api-go v1.0.9-0.20261119152805-1a7a500a264e
 ## explicit; go 1.23
 github.com/opencloud-eu/libre-graph-api-go
-# github.com/opencloud-eu/reva/v3 v3.0.2-0.20261119154313-aa77b15bccec => github.com/joshualawson/reva/v3 v3.0.0-20261120010339-75c8a9fa0aee
-## explicit; go 1.26.0
+# github.com/opencloud-eu/reva/v3 v3.0.2-0.20261119154313-aa77b15bccec => github.com/joshualawson/reva/v3 v3.0.0-20261120011641-6c56f3a9b58d
+## explicit; go 1.27.0
 github.com/opencloud-eu/reva/v3/cmd/revad/internal/grace
 github.com/opencloud-eu/reva/v3/cmd/revad/runtime
 github.com/opencloud-eu/reva/v3/internal/grpc/interceptors/appctx
@@ -1802,6 +1868,24 @@ github.com/prometheus/procfs/internal/parsers
 github.com/prometheus/statsd_exporter/pkg/level
 github.com/prometheus/statsd_exporter/pkg/mapper
 github.com/prometheus/statsd_exporter/pkg/mapper/fsm
+# github.com/quic-go/quic-go v0.62.0
+## explicit; go 1.26.0
+github.com/quic-go/quic-go
+github.com/quic-go/quic-go/internal/ackhandler
+github.com/quic-go/quic-go/internal/congestion
+github.com/quic-go/quic-go/internal/handshake
+github.com/quic-go/quic-go/internal/monotime
+github.com/quic-go/quic-go/internal/protocol
+github.com/quic-go/quic-go/internal/qerr
+github.com/quic-go/quic-go/internal/utils
+github.com/quic-go/quic-go/internal/utils/linkedlist
+github.com/quic-go/quic-go/internal/utils/minheap
+github.com/quic-go/quic-go/internal/utils/ringbuffer
+github.com/quic-go/quic-go/internal/wire
+github.com/quic-go/quic-go/qlog
+github.com/quic-go/quic-go/qlogwriter
+github.com/quic-go/quic-go/qlogwriter/jsontext
+github.com/quic-go/quic-go/quicvarint
 # github.com/r3labs/sse/v2 v2.10.0
 ## explicit; go 1.13
 github.com/r3labs/sse/v2
@@ -2693,4 +2777,4 @@ stash.kopano.io/kgol/rndm
 # github.com/unrolled/secure => github.com/opencloud-eu/secure v0.0.0-20260312082735-b6f5cb2244e4
 # go-micro.dev/v4 => github.com/butonic/go-micro/v4 v4.11.4-0.20260929213538-cd412c159a26
 # github.com/go-micro/plugins/v4/store/nats-js-kv => github.com/opencloud-eu/go-micro-plugins/v4/store/nats-js-kv v0.0.0-20250512152754-23325793059a
-# github.com/opencloud-eu/reva/v3 => github.com/joshualawson/reva/v3 v3.0.0-20261120010339-75c8a9fa0aee
+# github.com/opencloud-eu/reva/v3 => github.com/joshualawson/reva/v3 v3.0.0-20261120011641-6c56f3a9b58d

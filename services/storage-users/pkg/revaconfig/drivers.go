@@ -150,7 +150,16 @@ func Posix(cfg *config.Config, enableFSScan, enableFSWatch bool) map[string]any 
 		"watch_path":                 cfg.Drivers.Posix.WatchPath,
 		"watch_notification_brokers": cfg.Drivers.Posix.WatchNotificationBrokers,
 		"watch_root":                 cfg.Drivers.Posix.WatchRoot,
-		"inotify_stats_frequency":    cfg.Drivers.Posix.InotifyStatsFrequency,
+		"smbnotify": map[string]interface{}{
+			"address":         cfg.Drivers.Posix.SMBNotify.Address,
+			"share":           cfg.Drivers.Posix.SMBNotify.Share,
+			"path":            cfg.Drivers.Posix.SMBNotify.Path,
+			"username":        cfg.Drivers.Posix.SMBNotify.Username,
+			"password":        cfg.Drivers.Posix.SMBNotify.Password,
+			"domain":          cfg.Drivers.Posix.SMBNotify.Domain,
+			"reconnect_delay": cfg.Drivers.Posix.SMBNotify.ReconnectDelay,
+		},
+		"inotify_stats_frequency": cfg.Drivers.Posix.InotifyStatsFrequency,
 	}
 }
 
