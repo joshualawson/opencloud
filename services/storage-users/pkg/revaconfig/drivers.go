@@ -141,6 +141,8 @@ func Posix(cfg *config.Config, enableFSScan, enableFSWatch bool) map[string]any 
 			"download_endpoint": cfg.DataServerURL,
 		},
 		"use_space_groups":           cfg.Drivers.Posix.UseSpaceGroups,
+		"use_space_owner":            cfg.Drivers.Posix.UseSpaceOwner,
+		"adopt_existing_space_roots": cfg.Drivers.Posix.AdoptExistingSpaceRoots,
 		"enable_fs_revisions":        cfg.Drivers.Posix.EnableFSRevisions,
 		"scan_fs":                    enableFSScan,
 		"watch_fs":                   enableFSWatch,

@@ -1,0 +1,50 @@
+name: sphyrix
+on:
+  push:
+    branches: [sphyrix]
+  pull_request:
+    branches: [sphyrix]
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: env var annotations
+        run: make check-env-var-annotations
+      - name: build
+        run: go build -mod=vendor ./...
+      - name: storage-users tests
+        run: go test -mod=vendor ./services/storage-users/...
+  image:
+    needs: build-and-test
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+    env:
+      REGISTRY: registry.sphyrix.dev
+      IMAGE: registry.sphyrix.dev/homelab/opencloud
+    steps:
+      - uses: actions/checkout@v4
+      # the multiarch Dockerfile builds the binary and web assets itself
+      - name: image tag
+        id: tag
+        run: echo "tag=sphyrix-$(git rev-parse --short HEAD)" >> "$GITHUB_OUTPUT"
+      - uses: docker/setup-buildx-action@v3
+      - name: login to the homelab registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ secrets.SPHYRIX_REGISTRY_USERNAME }}
+          password: ${{ secrets.SPHYRIX_REGISTRY_TOKEN }}
+      - name: build and push
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: opencloud/docker/Dockerfile.multiarch
+          platforms: linux/amd64
+          push: true
+          tags: |
+            ${{ env.IMAGE }}:${{ steps.tag.outputs.tag }}
+            ${{ env.IMAGE }}:sphyrix

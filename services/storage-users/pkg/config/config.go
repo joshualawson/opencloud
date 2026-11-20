@@ -202,6 +202,9 @@ type PosixDriver struct {
 
 	UseSpaceGroups bool `yaml:"use_space_groups" env:"STORAGE_USERS_POSIX_USE_SPACE_GROUPS" desc:"Use space groups to manage permissions on spaces." introductionVersion:"1.0.0"`
 
+	UseSpaceOwner           bool `yaml:"use_space_owner" env:"STORAGE_USERS_POSIX_USE_SPACE_OWNER" desc:"Run every operation inside a space as the uid and gid that own the space root, so files written through OpenCloud belong to the space owner on disk. Implies use_space_groups. The storage-users service must run as root and the filesystem must not squash root." introductionVersion:"9.2.0"`
+	AdoptExistingSpaceRoots bool `yaml:"adopt_existing_space_roots" env:"STORAGE_USERS_POSIX_ADOPT_EXISTING_SPACE_ROOTS" desc:"When the directory a new personal space resolves to (see the personal space path template) already exists without space metadata, adopt it as the space root instead of refusing. Use for pre-existing home directories." introductionVersion:"9.2.0"`
+
 	EnableFSRevisions bool `yaml:"enable_fs_revisions" env:"STORAGE_USERS_POSIX_ENABLE_FS_REVISIONS" desc:"Allow for generating revisions from changes done to the local storage. Note: This doubles the number of bytes stored on disk because a copy of the current revision is stored to be turned into a revision later." introductionVersion:"1.0.0"`
 
 	ScanFS                   bool          `yaml:"scan_fs" env:"STORAGE_USERS_POSIX_SCAN_FS" desc:"Scan the filesystem at startup for changes and update the metadata accordingly." introductionVersion:"6.2.0"`
