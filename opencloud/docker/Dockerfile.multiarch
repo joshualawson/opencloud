@@ -14,7 +14,9 @@ RUN --mount=type=bind,target=/build,rw \
     --mount=type=cache,target=/go/pkg/mod \
     --mount=type=cache,target=/root/.cache \
     GOOS="${TARGETOS:-linux}" GOARCH="${TARGETARCH:-amd64}" ; \
-    make -C ${SRCDIR:-.}/services/web download-assets && \
+    web_assets="$(sed -n 's/^WEB_ASSETS_VERSION = //p' ${SRCDIR:-.}/services/web/Makefile)" && \
+    rm -rf ${SRCDIR:-.}/services/web/assets/core/* && \
+    curl --fail -sL "https://github.com/opencloud-eu/web/releases/download/${web_assets}/web.tar.gz" | tar xzf - -C ${SRCDIR:-.}/services/web/assets/core/ && \
     make -C ${SRCDIR:-.}/services/idp assets && \
     make -C ${SRCDIR:-.}/opencloud release-linux-docker-${TARGETARCH} \
         DIST=/dist \
