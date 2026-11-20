@@ -32,8 +32,9 @@ privileged pod on Talos 1.12.0 (kernel 6.18) against `192.168.61.2`:
 | root squash | n/a | root not squashed; unknown uids mapped to guest | all files appear as the mount uid |
 | per-user ownership | n/a | yes, for uids the NAS knows | **no** (single mount identity) |
 
-So, as shipped, posixfs cannot run over this QNAP's NFS. Three ways forward,
-one must be chosen (tracked in joshualawson/opencloud#6):
+So, as shipped, posixfs cannot run over this QNAP's NFS. Three ways forward
+were considered (joshualawson/opencloud#6); **option 3 was chosen on
+2026-11-20**, see "Chosen layout" below:
 
 1. **NFS 4.2 from the NAS.** If the QTS version in use (not recorded; check
    Control Panel → System → Firmware) or a newer one offers v4.2, the stock
@@ -49,6 +50,31 @@ one must be chosen (tracked in joshualawson/opencloud#6):
    with the homes tree as a local bind mount; the rest of OpenCloud stays on
    Talos and reaches it over gRPC. xattrs and even inotify work natively and
    no NFS export is needed. Cost: one component outside the cluster pipeline.
+
+## Chosen layout: storage-users on the NAS
+
+The TS-863U-RP (QTS 5.2) has no firmware with NFS 4.2, so `storage-users`
+runs on the NAS itself, in Container Station, with `/share/homes` bind-mounted
+at `/data/homes` and `/share/opencloud` at `/data`. Every other service runs
+on the cluster in one Deployment (`OC_EXCLUDE_RUN_SERVICES=idp,storage-users`,
+`OC_ADD_RUN_SERVICES=collaboration`). The two halves meet through:
+
+- the cluster's NATS, exposed on a LoadBalancer (`MICRO_REGISTRY_ADDRESS`,
+  `OC_EVENTS_ENDPOINT`, `OC_CACHE_STORE_NODES`, `OC_PERSISTENT_STORE_NODES`,
+  `STORAGE_USERS_ID_CACHE_STORE_NODES` on the NAS side);
+- the NAS service binding and therefore advertising its LAN address
+  (`STORAGE_USERS_GRPC_ADDR=<nas ip>:9157`, `..._HTTP_ADDR=<nas ip>:9158`,
+  `..._DATA_SERVER_URL=http://<nas ip>:9158/data`), which the registry hands
+  to the cluster services;
+- the NAS service dialling the gateway and settings services directly with
+  the `dns:///<lb ip>:<port>` form, which skips the registry (its entries for
+  cluster services are pod addresses the NAS cannot reach).
+
+The NAS container runs as root with host networking; `use_space_owner`,
+`adopt_existing_space_roots`, `watch_fs` with `inotifywait` and `scan_fs` are
+on. `smbnotify` is not needed in this layout. The homelab `drive` chart owns
+the compose file and starts it through Container Station's TLS Docker API
+from a Helm hook Job, so both halves deploy in one release.
 
 ## Runtime contract for the chart (joshualawson/opencloud#3)
 
