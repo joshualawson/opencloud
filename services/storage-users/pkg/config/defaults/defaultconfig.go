@@ -155,6 +155,7 @@ func DefaultConfig() *config.Config {
 				WatchFS:                    false,
 				EnableFSRevisions:          false,
 				InotifyStatsFrequency:      5 * time.Minute,
+				LockPruneInterval:          24 * time.Hour,
 			},
 		},
 		Events: config.Events{

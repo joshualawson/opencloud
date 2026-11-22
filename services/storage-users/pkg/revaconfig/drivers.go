@@ -147,6 +147,7 @@ func Posix(cfg *config.Config, enableFSScan, enableFSWatch bool) map[string]any 
 		"fallback_uid":                       cfg.Drivers.Posix.FallbackUID,
 		"fallback_gid":                       cfg.Drivers.Posix.FallbackGID,
 		"ignored_dir_patterns":               cfg.Drivers.Posix.IgnoredDirPatterns,
+		"lock_prune_interval":                cfg.Drivers.Posix.LockPruneInterval,
 		"enable_fs_revisions":                cfg.Drivers.Posix.EnableFSRevisions,
 		"scan_fs":                            enableFSScan,
 		"watch_fs":                           enableFSWatch,
