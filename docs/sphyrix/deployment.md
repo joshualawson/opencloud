@@ -7,12 +7,14 @@ personal spaces. This page is the operating contract for the `drive` chart in
 the homelab Gitea; it is deliberately self-contained so a rebuild needs no
 memory.
 
-## The three fork options
+## The fork options
 
 | Env var | What it does | Needs |
 |---|---|---|
 | `STORAGE_USERS_POSIX_USE_SPACE_OWNER=true` | Every operation inside a space runs as the uid and gid of the space root, so new files, directories, metadata, trash and revisions are owned by the space owner on disk. Implies `use_space_groups`. | `storage-users` runs as root; the export does not squash root; the space root is owned by a uid the NAS resolves (a domain user after the AD join), never a synthetic one. |
 | `STORAGE_USERS_POSIX_ADOPT_EXISTING_SPACE_ROOTS=true` | When the personal space path template resolves to a directory that already exists without space metadata, it is adopted as the space root with its contents intact instead of refused. | A path template that points at the existing homes, e.g. `homes/{{.User.Username}}` (the exact naming comes from the QNAP join, spike #5). |
+| `STORAGE_USERS_POSIX_PERSONAL_SPACE_FALLBACK_PATH_TEMPLATE=cloud/{{.User.Username}}` | Makes the personal space path template adopt-only: a user without a directory there (a cloud-only person with no NAS home) gets the space under this template instead of a bogus home in the domain homes tree. `STORAGE_USERS_POSIX_FALLBACK_UID`/`_GID` own those spaces, so `use_space_owner` acts as that one identity in all of them. | A uid/gid for the cloud-only spaces; it only has to exist on the NAS if people browse that directory over SMB. |
+| `STORAGE_USERS_POSIX_IGNORED_DIR_PATTERNS=.*,@Recycle,@eaDir` | Directories whose name matches one of the globs, at any depth, are neither scanned at startup, watched, assimilated nor listed: desktop trash, `.git`, editor caches and the QNAP folders stay out of the index. Files with matching names are untouched. | Nothing; empty by default. |
 | `STORAGE_USERS_POSIX_WATCH_FS=true` + `STORAGE_USERS_POSIX_WATCH_TYPE=smbnotify` | Live change detection through the SMB server: one session long-polls recursive `SMB2 CHANGE_NOTIFY` on the share directory that corresponds to `STORAGE_USERS_POSIX_WATCH_ROOT`; creates, writes, renames and deletes by any SMB client reach the assimilator within milliseconds. A dropped session or a server overflow triggers a rescan of the watch root. | `STORAGE_USERS_POSIX_SMBNOTIFY_{ADDRESS,SHARE,PATH,USERNAME,PASSWORD,DOMAIN}`; an account with read access to the homes tree (nothing else). |
 
 Everything else is stock OpenCloud: Keycloak with AD federation for login
